@@ -1,0 +1,14 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /accenture
+spring:
+  application:
+    name: MsAccenture
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  jsonplaceholder:
+    url: https://jsonplaceholder.typicode.com
+    name: jsonpalceholder
