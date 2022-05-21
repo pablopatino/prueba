@@ -18,7 +18,8 @@ public class UsersController {
 
     private final UsersService usersService;
 
-    @GetMapping("/" )
+    //TODO: ARREGLAR ESTE GET MAPPING Y AGREGAR SWAGGER
+    @GetMapping("" )
     public ResponseEntity<List<User>> getAllUsers(){
         return ResponseEntity.status(HttpStatus.OK).body(usersService.getAllUsers());
     }
@@ -30,7 +31,7 @@ public class UsersController {
 
     @GetMapping("/comments")
     public ResponseEntity<List<Comment>> getAllCommentsByUserOrName(@RequestParam(value = "name", required = false) String name,
-                                           @RequestParam(value = "userId", required = false) String userId){
+                                                                    @RequestParam(value = "userId", required = false) String userId){
         return ResponseEntity.status(HttpStatus.OK).body(usersService.getAllUserOrNameComments(userId, name));
     }
 }
