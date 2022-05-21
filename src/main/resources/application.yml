@@ -5,3 +5,7 @@ server:
 spring:
   application:
     name: MsAccenture
+
+  jsonplaceholder:
+    url: https://jsonplaceholder.typicode.com
+    name: jsonpalceholder
