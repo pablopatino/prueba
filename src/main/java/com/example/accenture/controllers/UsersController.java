@@ -1,5 +1,6 @@
 package com.example.accenture.controllers;
 
+import com.example.accenture.domain.Comment;
 import com.example.accenture.domain.User;
 import com.example.accenture.dto.PhotoDto;
 import com.example.accenture.service.UsersService;
@@ -24,12 +25,12 @@ public class UsersController {
 
     @GetMapping("/photos/{userId}")
     public ResponseEntity<List<PhotoDto>> getAllUserPhotos(@PathVariable("userId") int userId){
-        return ResponseEntity.status(HttpStatus.OK).body(usersService.getAllUsersPhotos(userId));
+        return ResponseEntity.status(HttpStatus.OK).body(usersService.getAllUserPhotos(userId));
     }
 
     @GetMapping("/comments")
-    public ResponseEntity<?> comment(@RequestParam(value = "name", required = false) String name,
-                                     @RequestParam(value = "userId", required = false) String userId){
+    public ResponseEntity<List<Comment>> getAllCommentsByUserOrName(@RequestParam(value = "name", required = false) String name,
+                                           @RequestParam(value = "userId", required = false) String userId){
         return ResponseEntity.status(HttpStatus.OK).body(usersService.getAllUserOrNameComments(userId, name));
     }
 }

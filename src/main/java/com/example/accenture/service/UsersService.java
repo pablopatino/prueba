@@ -9,6 +9,6 @@ import java.util.List;
 public interface UsersService {
 
     List<User> getAllUsers();
-    List<PhotoDto> getAllUsersPhotos(int userId);
+    List<PhotoDto> getAllUserPhotos(int userId);
     List<Comment> getAllUserOrNameComments(String userId, String name);
 }

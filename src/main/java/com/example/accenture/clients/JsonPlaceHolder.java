@@ -25,4 +25,7 @@ public interface JsonPlaceHolder {
 
     @GetMapping("posts/{postId}/comments")
     List<Comment> getAllUserComments(@PathVariable("postId") int postId);
+
+    @GetMapping("/comments")
+    List<Comment> getAllCommentosByName(@RequestParam("name") String name);
 }
