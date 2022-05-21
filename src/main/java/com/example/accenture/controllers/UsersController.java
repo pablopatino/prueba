@@ -6,10 +6,7 @@ import com.example.accenture.service.UsersService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,8 +22,14 @@ public class UsersController {
         return ResponseEntity.status(HttpStatus.OK).body(usersService.getAllUsers());
     }
 
-    @GetMapping("/albums/{userId}")
-    public ResponseEntity<List<PhotoDto>> getAllUsersAlbums(@PathVariable("userId") int userId){
-        return ResponseEntity.status(HttpStatus.OK).body(usersService.getAllUserAlbums(userId));
+    @GetMapping("/photos/{userId}")
+    public ResponseEntity<List<PhotoDto>> getAllUserPhotos(@PathVariable("userId") int userId){
+        return ResponseEntity.status(HttpStatus.OK).body(usersService.getAllUsersPhotos(userId));
+    }
+
+    @GetMapping("/comments")
+    public ResponseEntity<?> comment(@RequestParam(value = "name", required = false) String name,
+                                     @RequestParam(value = "userId", required = false) String userId){
+        return ResponseEntity.status(HttpStatus.OK).body(usersService.getAllUserOrNameComments(userId, name));
     }
 }

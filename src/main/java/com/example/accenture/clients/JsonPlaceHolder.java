@@ -1,8 +1,6 @@
 package com.example.accenture.clients;
 
-import com.example.accenture.domain.Album;
-import com.example.accenture.domain.Photo;
-import com.example.accenture.domain.User;
+import com.example.accenture.domain.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,4 +19,10 @@ public interface JsonPlaceHolder {
 
     @GetMapping("/albums/{albumId}/photos")
     List<Photo> getAllUserPhoto(@PathVariable("albumId") int albumId);
+
+    @GetMapping("/posts/{userId}/posts")
+    List<Post> getAllPostId(@PathVariable("userId") int userId);
+
+    @GetMapping("posts/{postId}/comments")
+    List<Comment> getAllUserComments(@PathVariable("postId") int postId);
 }

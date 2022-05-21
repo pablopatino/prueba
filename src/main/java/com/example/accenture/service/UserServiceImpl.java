@@ -2,6 +2,7 @@ package com.example.accenture.service;
 
 import com.example.accenture.clients.JsonPlaceHolder;
 import com.example.accenture.domain.Album;
+import com.example.accenture.domain.Comment;
 import com.example.accenture.domain.Photo;
 import com.example.accenture.domain.User;
 import com.example.accenture.dto.PhotoDto;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UsersService{
     }
 
     @Override
-    public List<PhotoDto> getAllUserAlbums(int userId) {
+    public List<PhotoDto> getAllUsersPhotos(int userId) {
 
         List<Album> userAlbumList = jsonPlaceHolder.getAllUserAlbums(userId);
         List<Photo> userPhotosList = new ArrayList<>();
@@ -39,5 +40,20 @@ public class UserServiceImpl implements UsersService{
         List<PhotoDto> userPhotosDtoList = new ArrayList<>();
         userPhotosList.forEach(photo -> userPhotosDtoList.add(entityToDto.photoEntityToDto(photo)));
         return userPhotosDtoList;
+    }
+
+    @Override
+    public List<Comment> getAllUserOrNameComments(String userId, String name) {
+
+        List<Comment> userCommentsList = new ArrayList<>();
+        
+        jsonPlaceHolder.getAllPostId(Integer.parseInt(userId)).forEach(post ->
+            jsonPlaceHolder.getAllUserComments(post.getId()).forEach(comment ->
+                userCommentsList.add(new Comment(comment.getPostId(),comment.getId(),comment.getName(),comment.getEmail(),comment.getBody()))
+            )
+        );
+
+
+        return userCommentsList;
     }
 }
