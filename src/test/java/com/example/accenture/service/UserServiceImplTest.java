@@ -34,7 +34,7 @@ class UserServiceImplTest {
 
     @Test
     void getAllCommentsByUserId() {
-        List<Comment> commentsList = usersService.getAllUserOrNameComments("1",null);
+        List<Comment> commentsList = usersService.getAllUserOrNameComments(1,null);
         assertThat(commentsList).isNotEmpty();
     }
 

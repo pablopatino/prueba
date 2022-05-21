@@ -20,12 +20,15 @@ public interface JsonPlaceHolder {
     @GetMapping("/albums/{albumId}/photos")
     List<Photo> getAllUserPhoto(@PathVariable("albumId") int albumId);
 
-    @GetMapping("/posts/{userId}/posts")
-    List<Post> getAllPostId(@PathVariable("userId") int userId);
+    @GetMapping("/posts")
+    List<Post> getAllPostId(@RequestParam("userId") int userId);
 
     @GetMapping("posts/{postId}/comments")
     List<Comment> getAllUserComments(@PathVariable("postId") int postId);
 
     @GetMapping("/comments")
     List<Comment> getAllCommentosByName(@RequestParam("name") String name);
+
+    @GetMapping("/users")
+    List<User> getUserById(@RequestParam("id") int id);
 }

@@ -19,9 +19,11 @@ import java.util.List;
 @AllArgsConstructor
 public class UserServiceImpl implements UsersService {
 
-    public static final String NAME_OR_USERID_REQUIRED = "Porfavor ingresar un userId o un Name";
-    public static final String USERID_REQUIRED = "Porfavor ingrese un UserId";
-    public static final String ALBUMS_NOT_FOUND = "No se ha encontrado informacion del Albumes";
+    public static final String NAME_OR_USERID_REQUIRED = "Porfavor ingresar un usuario o un Name";
+    public static final String USERID_REQUIRED = "Porfavor ingrese un usuario valido";
+    public static final String ALBUMS_NOT_FOUND = "Este usuario no existe y/o no tiene photos";
+    public static final String USER_NOT_FOUND= "Usuario no encontrado";
+    public static final String COMMENT_NOT_FOUND = "Comentarios no encontrados";
 
     public static final int CERO = 0;
 
@@ -40,8 +42,9 @@ public class UserServiceImpl implements UsersService {
             throw new BadRequestException(USERID_REQUIRED);
         }
 
+        userExist(userId);
+
         List<Album> userAlbumList = jsonPlaceHolder.getAllUserAlbums(userId);
-        //TODO: TAMBIEN SE PEUDE BUSCAR PRIMERO POR USUARIOS Y VER SI NO EXISTE
         if (userAlbumList.isEmpty()) {
             throw new NotFoundException(ALBUMS_NOT_FOUND);
         }
@@ -59,22 +62,36 @@ public class UserServiceImpl implements UsersService {
     }
 
     @Override
-    public List<Comment> getAllUserOrNameComments(String userId, String name) {
+    public List<Comment> getAllUserOrNameComments(Integer userId, String name) {
 
         if (userId == null && name == null) {
             throw new BadRequestException(NAME_OR_USERID_REQUIRED);
         }
-        List<Comment> userCommentsList = new ArrayList<>();
 
         if (name != null) {
-            return jsonPlaceHolder.getAllCommentosByName(name);
+            List<Comment> commentListByName =  jsonPlaceHolder.getAllCommentosByName(name);
+            if (commentListByName.isEmpty()){
+                throw new NotFoundException(COMMENT_NOT_FOUND);
+            }
+            return commentListByName;
         }
 
-        jsonPlaceHolder.getAllPostId(Integer.parseInt(userId)).forEach(post ->
+        userExist(userId);
+
+        List<Comment> userCommentsList = new ArrayList<>();
+
+        jsonPlaceHolder.getAllPostId(userId).forEach(post ->
                 jsonPlaceHolder.getAllUserComments(post.getId()).forEach(comment ->
                         userCommentsList.add(new Comment(comment.getPostId(), comment.getId(), comment.getName(), comment.getEmail(), comment.getBody()))
                 )
         );
         return userCommentsList;
+    }
+
+    private void userExist(int userId){
+        List<User> user = jsonPlaceHolder.getUserById(userId);
+        if (user.isEmpty()){
+            throw new NotFoundException(USER_NOT_FOUND);
+        }
     }
 }

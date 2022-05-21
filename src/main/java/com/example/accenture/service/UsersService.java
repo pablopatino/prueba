@@ -10,5 +10,5 @@ public interface UsersService {
 
     List<User> getAllUsers();
     List<PhotoDto> getAllUserPhotos(int userId);
-    List<Comment> getAllUserOrNameComments(String userId, String name);
+    List<Comment> getAllUserOrNameComments(Integer userId, String name);
 }
