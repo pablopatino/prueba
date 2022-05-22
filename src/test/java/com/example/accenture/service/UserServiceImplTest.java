@@ -49,7 +49,7 @@ class UserServiceImplTest {
         try {
             usersService.getAllUserPhotos(0);
         } catch (BadRequestException e){
-            assertThat(e.getMessage()).isEqualTo("Porfavor ingrese un UserId");
+            assertThat(e.getMessage()).isEqualTo("Porfavor ingrese un usuario valido");
         }
     }
 
@@ -58,7 +58,7 @@ class UserServiceImplTest {
         try {
             usersService.getAllUserOrNameComments(null,null);
         } catch (BadRequestException e){
-            assertThat(e.getMessage()).isEqualTo("Porfavor ingresar un userId o un Name");
+            assertThat(e.getMessage()).isEqualTo("Porfavor ingresar un usuario o un Name");
         }
     }
 }
