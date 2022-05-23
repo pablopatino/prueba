@@ -3,6 +3,7 @@
 ###Esta Api, se encuentra documentada con Swagger 
 
 ###Url: http://localhost:8080/accenture/swagger-ui.html#/
+###Url Aws: http://34.228.196.162/accenture/api/v1/users
 
 #Endpoint realizados
 
@@ -34,3 +35,5 @@
     
     ##Phtoo ejemplo
     ![img_3.png](img_3.png)
+    
+   
